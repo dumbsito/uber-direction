@@ -3,8 +3,14 @@ const app = express()
 const cors=require("cors")
 const server=require("http").Server(app);
 const port=3000;
-
+const path=require("path")
 app.use(cors());
+
+app.use(express.static(path.join(__dirname,"./uber-app")))
+
+app.get("/",(req,res)=>{
+    res.sendFile(path.join(__dirname,"/uber-app/index.html"))
+})
 
 const io=require("socket.io")(server,{
     cors:{
