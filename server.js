@@ -9,18 +9,19 @@ app.use(cors());
 app.use(express.static(path.join(__dirname,"./uber-app")))
 
 app.get("/",(req,res)=>{
+    
     res.sendFile(path.join(__dirname,"/uber-app/index.html"))
 })
+
 
 const io=require("socket.io")(server,{
     cors:{
         crossOriginIsolated:["http://localhost:4200"]
     }
 })
-
 io.on("connection",(socket)=>{
     socket.on("find-driver",({points})=>{
- 
+        console.log(server);
         const counter = setInterval(() => {
         const coords = points.shift();
         if (!coords) {
